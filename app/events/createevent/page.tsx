@@ -9,6 +9,8 @@ import { useState } from "react";
 
 export default function CreateEventForm() {
   const [date, setDate] = useState<Date | null>(new Date());
+  const [name, setName] = useState("");
+  
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -19,6 +21,7 @@ export default function CreateEventForm() {
       method: "POST",
       body: JSON.stringify({
         starts_at: date.toString(),
+        title: name.toString(),
       }),
       headers: { "Content-Type": "application/json" },
     });
