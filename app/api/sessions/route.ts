@@ -1,4 +1,4 @@
-// app/api/events/route.ts
+// app/api/sessions/route.ts
 
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
@@ -20,7 +20,12 @@ export async function POST(req: Request) {
   const { data, error } = await supabase
     .from("sessions")
     .insert({
-      starts_at: body.starts_at, // 2025-11-02T11:00:00.000Z
+      starts_at: body.starts_at,
+      ends_at: body.ends_at,
+      title: body.title,
+      description: body.description,
+      location: body.location,
+      owner: body.owner,
     })
     .select()
     .single();
