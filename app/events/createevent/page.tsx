@@ -10,12 +10,11 @@ import { useState } from "react";
 export default function CreateEventForm() {
   const [date, setDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
-  const [name, setName] = useState<string | null>("");
+  const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<string>("");
-  const [owner, setOwner] = useState<string | null>("");
+  const [owner, setOwner] = useState<string>("");
   const [created, setCreated] = useState<Date>(new Date());
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
