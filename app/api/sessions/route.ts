@@ -8,6 +8,28 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY! // or anon if insert is public
 );
 
+
+export async function GET(req: Request) {
+  const body = await req.json();
+
+  console.log("body", body);
+
+  // SUPABASE PART:
+  // In Supabase, column type should be `timestamptz` (timestamp with time zone)
+  // so that Postgres stores it as UTC.
+
+  const { data, error } = await supabase
+.from("sessions")
+.select("*")
+.order("created_at", { ascending: false });
+
+if (error) {
+throw error;
+}
+  return NextResponse.json({ event: data });
+}
+
+
 export async function POST(req: Request) {
   const body = await req.json();
 
