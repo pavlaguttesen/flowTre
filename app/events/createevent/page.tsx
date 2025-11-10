@@ -41,7 +41,7 @@ export default function CreateEventForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto bg-white dark:bg-neutral-900 shadow-lg rounded-xl p-6 space-y-4 border border-gray-100 dark:border-neutral-800"
+      className="max-w-md mx-auto bg-white dark:bg-neutral-700 shadow-lg rounded-xl p-6 space-y-4 border border-gray-100 dark:border-neutral-800"
     >
       <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
         Create your event here...
