@@ -2,9 +2,7 @@
 
 import "@mantine/dates/styles.css";
 import { Button, Text } from "@mantine/core";
-
 import { DateTimePicker } from "@mantine/dates";
-
 import { useState } from "react";
 
 export default function CreateEventForm() {
