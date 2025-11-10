@@ -15,7 +15,9 @@ export default function CreateEventForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!date) return;
+    if (!date || !name) return(
+      alert("Please fill in all fields")
+    );
 
     const res = await fetch("/api/events", {
       method: "POST",
