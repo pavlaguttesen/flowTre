@@ -1,3 +1,4 @@
+"use client";
 // LoginForm.tsx
 import { useState } from "react";
 import { supabase } from "@/app/lib/supabaseClient";
