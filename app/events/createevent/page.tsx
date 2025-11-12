@@ -19,6 +19,8 @@ export default function CreateEventForm() {
     if (!date || !name || !endDate || !owner)
       return alert("Please fill in all fields");
 
+
+    
     const res = await fetch("/api/sessions", {
       method: "POST",
       body: JSON.stringify({
