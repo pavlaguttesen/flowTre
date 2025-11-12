@@ -4,6 +4,7 @@ import "@mantine/dates/styles.css";
 import { Button, Text } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { useState } from "react";
+import { supabase } from "@/app/lib/supabaseClient";
 
 export default function CreateEventForm() {
   const [date, setDate] = useState<Date | null>(null);
@@ -12,30 +13,31 @@ export default function CreateEventForm() {
   const [description, setDescription] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [owner, setOwner] = useState<string>("");
-  const [created, setCreated] = useState<Date>(new Date());
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (!date || !name || !endDate || !owner)
       return alert("Please fill in all fields");
 
-
-    
-    const res = await fetch("/api/sessions", {
-      method: "POST",
-      body: JSON.stringify({
+ const { data, error } = await supabase
+      .from("sessions")
+      .insert({
         starts_at: date.toISOString(),
         ends_at: endDate.toISOString(),
         title: name.trim(),
         description: description.trim() || null,
         location: location.trim() || null,
         owner: owner.trim(),
-        created_at: created.toISOString(),
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+      })
+      .select()
+      .single();
 
-    console.log(await res.json());
+    if (error) {
+      console.error("Insert error", error);
+      return;
+    }
+
+    console.log("Inserted row:", data);
   }
 
   return (
