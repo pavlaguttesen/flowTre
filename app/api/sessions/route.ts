@@ -20,7 +20,7 @@ export async function GET(req: Request) {
 
   const { data, error } = await supabase
 .from("sessions")
-.select("*")
+.select("*") // select all columns
 .order("created_at", { ascending: false });
 
 if (error) {
