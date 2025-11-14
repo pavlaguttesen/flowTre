@@ -19,7 +19,7 @@ export default function CreateEventForm() {
     if (!date || !name || !endDate || !owner)
       return alert("Please fill in all fields");
 
- const { data, error } = await supabase
+    const { data, error } = await supabase
       .from("sessions")
       .insert({
         starts_at: date.toISOString(),
@@ -38,6 +38,14 @@ export default function CreateEventForm() {
     }
 
     console.log("Inserted row:", data);
+
+    setDate(null);
+    setEndDate(null);
+    setName("");
+    setDescription("");
+    setLocation("");
+    setOwner("");
+    alert("Event created successfully!");
   }
 
   return (
