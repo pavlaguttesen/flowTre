@@ -4,7 +4,7 @@ import "@mantine/dates/styles.css";
 import { Button, Text } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { useState } from "react";
-import { supabase } from "@/app/lib/supabaseClient";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function CreateEventForm() {
   const [date, setDate] = useState<Date | null>(null);
