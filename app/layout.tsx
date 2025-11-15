@@ -1,38 +1,21 @@
-// app/layout.tsx
-import Link from "next/link";
-import { Button } from "@mantine/core";
+import type { Metadata } from "next";
 import "./globals.css";
-import "@mantine/core/styles.css";
-import "@mantine/notifications/styles.css";
+import NavBar from "@/app/components/NavBar";
 
-import { MantineProvider } from "@mantine/core";
-
-export const metadata = {
-  title: "Next Routing Workshop",
+export const metadata: Metadata = {
+  title: "Moodle 2.01",
+  description: "Learning platform",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <MantineProvider>
-          <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
-            <nav style={{ display: "flex", gap: "1rem" }}>
-              <Link href="/">Home</Link>
+      <body className="bg-slate-950 text-slate-100 min-h-screen">
+        <NavBar />
 
-              <Link href="/events">Sessions</Link>
-
-              <Link href="/events/createevent">Create session</Link>
-            </nav>
-          </header>
-
-          <main style={{ padding: "1rem" }}>{children}</main>
-          
-        </MantineProvider>
+        <main className="max-w-5xl mx-auto py-6 px-4">
+          {children}
+        </main>
       </body>
     </html>
   );
