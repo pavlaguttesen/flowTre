@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     setMessage(null);
@@ -20,12 +21,6 @@ export default function RegisterPage() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      // optional metadata – doesn't control permissions, just extra info
-      options: {
-        data: {
-          role: "student", // you can ignore/remove this if you like
-        },
-      },
     });
 
     setLoading(false);
@@ -35,23 +30,27 @@ export default function RegisterPage() {
       return;
     }
 
-    console.log("New user:", data.user);
+    // If email confirmations are enabled, there may be no session yet
+    if (!data.session) {
+      setMessage("Registration successful! Please check your email to confirm.");
+      return;
+    }
 
-    // You can show a message or just redirect straight away
-    router.push("/login");
+    router.push("/");
+    router.refresh();
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-slate-950 p-6">
-      <div className="w-full max-w-md bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-800">
-        <h1 className="text-3xl font-bold text-white mb-6 text-center">
+    <main className="min-h-screen flex items-center justify-center bg-(--background) text-(--foreground) p-6">
+      <div className="w-full max-w-md bg-(--card-bg) border border-(--card-border) p-8 rounded-2xl shadow-lg">
+        <h1 className="text-3xl font-bold text-(--forest-50) mb-6 text-center">
           Register
         </h1>
 
         <form onSubmit={handleRegister} className="space-y-6">
           {/* Email */}
           <div>
-            <label className="block text-sm text-slate-300 mb-1">
+            <label className="block text-sm text-(--jade-200) mb-1">
               Email
             </label>
             <input
@@ -60,13 +59,22 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
-              className="w-full rounded-md bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="
+                w-full rounded-md 
+                bg-(--forest-950) 
+                border border-(--forest-700) 
+                px-3 py-2 text-sm
+                text-(--forest-50) 
+                placeholder:text-(--forest-300)/70
+                focus:outline-none focus:ring-2 focus:ring-(--jade-400)
+              "
+              placeholder="you@example.com"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-sm text-slate-300 mb-1">
+            <label className="block text-sm text-(--jade-200) mb-1">
               Password
             </label>
             <input
@@ -75,13 +83,22 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
-              className="w-full rounded-md bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="
+                w-full rounded-md 
+                bg-(--forest-950) 
+                border border-(--forest-700) 
+                px-3 py-2 text-sm
+                text-(--forest-50) 
+                placeholder:text-(--forest-300)/70
+                focus:outline-none focus:ring-2 focus:ring-(--jade-400)
+              "
+              placeholder="Create a strong password"
             />
           </div>
 
           {/* Message */}
           {message && (
-            <p className="text-sm text-red-400 bg-red-900/40 border border-red-700 rounded-md px-3 py-2">
+            <p className="text-sm text-(--jade-100) bg-(--forest-800) border border-(--jade-600) rounded-md px-3 py-2">
               {message}
             </p>
           )}
@@ -90,20 +107,28 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2 disabled:opacity-50"
+            className="
+              w-full rounded-md 
+              bg-(--button-bg) 
+              hover:bg-(--button-bg-hover) 
+              text-(--button-text) 
+              font-medium py-2 
+              transition
+              disabled:opacity-60 disabled:cursor-not-allowed
+            "
           >
-            {loading ? "Creating account..." : "Create account"}
+            {loading ? "Creating account..." : "Register"}
           </button>
         </form>
 
         {/* Login link */}
-        <p className="text-center text-slate-300 mt-6 text-sm">
+        <p className="text-center text-(--forest-100) mt-6 text-sm">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2"
+            className="text-(--jade-300) hover:text-(--jade-200) underline underline-offset-2"
           >
-            Log in
+            Log in here
           </Link>
         </p>
       </div>

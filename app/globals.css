@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==== DESIGN TOKENS ==== */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+:root {
+  /* Forest color palette */
+  --forest-50:  #ecfdf5;
+  --forest-100: #d1fae5;
+  --forest-200: #a7f3d0;
+  --forest-300: #6ee7b7;
+  --forest-400: #34d399;
+  --forest-500: #10b981;
+  --forest-600: #047857;
+  --forest-700: #065f46;
+  --forest-800: #064e3b;
+  --forest-900: #022c22;
+  --forest-950: #011b14;
+
+  /* Jade palette (accent) */
+  --jade-50:  #e6fffb;
+  --jade-100: #b3fff2;
+  --jade-200: #80ffe8;
+  --jade-300: #4dffdf;
+  --jade-400: #1affd5;
+  --jade-500: #00e6b3;
+  --jade-600: #00b38a;
+  --jade-700: #008062;
+  --jade-800: #004d3a;
+  --jade-900: #002a20;
+
+  /* 🔥 GLOBAL background + text (default app theme) */
+  --background: var(--forest-950);
+  --foreground: var(--forest-50);
+
+  /* Component-level tokens */
+  --card-bg: var(--forest-900);
+  --card-border: var(--forest-700);
+  --button-bg: var(--jade-500);
+  --button-bg-hover: var(--jade-400);
+  --button-text: var(--forest-950);
+
+  /* Fonts (if you use Geist from the Next template) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Optional: if you want a lighter variant when the OS is in "light" mode */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--forest-50);
+    --foreground: var(--forest-900);
   }
 }
 
+/* ==== TAILWIND v4 THEME HOOK ==== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/* ==== GLOBAL ELEMENT STYLING ==== */
+
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
