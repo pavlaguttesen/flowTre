@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/app/components/NavBar";
 
-export const metadata: Metadata = {
-  title: "Moodle 2.01",
-  description: "Learning platform",
+export const metadata = {
+  title: "Session Planner",
+  description: "Plan your sessions with ease!",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
